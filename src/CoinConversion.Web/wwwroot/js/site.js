@@ -27,7 +27,7 @@
                 success: function (data, textStatus, jQxhr) {
                     console.log(data);
                     $('#responseResult').html(
-                        $('#CurrencyDestination').val() + ' ' + $('#ValueOrigin').val() / data
+                        $('#CurrencyDestination').val() + ' ' + ($('#ValueOrigin').val().replace(",", ".") * data)
                     );
                 },
                 error: function (jqXhr, textStatus, errorThrown) {

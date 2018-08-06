@@ -5,7 +5,7 @@ using System;
 
 namespace CoinConversion.Api.Controllers
 {
-    [DisableCors]
+    [EnableCors("CorsPolicy")]
     public class CurrencyController : Controller
     {
         
@@ -23,7 +23,6 @@ namespace CoinConversion.Api.Controllers
 
         [HttpPost]
         [Route("api/calculaterates")]
-        [DisableCors]
         public object PostCalculateRates([FromBody] RateDto rate)
         {
             object response = string.Empty;

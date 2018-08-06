@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CoinConversion.Api.Controllers;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace CoinConversion.Api
 {
@@ -27,7 +19,14 @@ namespace CoinConversion.Api
         {
 
             services.AddMvc();
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
             /*
             services.AddAuthentication(options => {
@@ -55,13 +54,9 @@ namespace CoinConversion.Api
                 app.UseDeveloperExceptionPage();
             }
 
-        
-
+            // global policy - assign here or on each controller
+            app.UseCors("CorsPolicy");
             app.UseMvc();
-
-            app.UseCors(option => option.AllowAnyOrigin());
-            app.UseCors(option => option.AllowAnyHeader());
-            app.UseCors(option => option.AllowCredentials());
 
             //app.UseAuthentication();
         }
